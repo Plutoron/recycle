@@ -1,0 +1,61 @@
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+<view wx:if="{{isShow}}" class="animated fadeIn">
+  <view class='topBanner'>
+    <image src='{{bannerUrl}}'></image>
+  </view>
+ 
+  <view class='recycleTabBar'>
+    <view class='tabBarItem firstItem' data-pid="15" bindtap="goToChooseDevice">
+      <view class='tabBarLeftItem'>
+        <view class='leftTop'>手机回收</view>
+        <view class='leftBottom'>给旧手机找个家</view>
+      </view>
+      <view class='tabBarRightItem'>
+        <image src='../../../img/sjhs@2x.png'></image>
+      </view>
+    </view>
+
+    <view class='tabBarItem' data-pid="16" bindtap="goToChooseDevice">
+      <view class='tabBarLeftItem'>
+        <view class='leftTop'>平板回收</view>
+        <view class='leftBottom'>高价回收，钱不闲置</view>
+      </view>
+      <view class='tabBarRightItem'>
+        <image src='../../../img/pbhs@2x.png'></image>
+      </view>
+    </view>
+  </view>
+
+  <view class='hotRecycle'>
+    <view class='hotRecycleHead'> <image src='../../../img/rmhsjx@2x.png'></image> <text>热门回收机型</text></view>
+    <view class='hotRecycleContent'>
+      <view class='hotRecycleContentItem' bindtap="goToChooseFault" wx:for="{{hotDevice}}" wx:key="index" data-bid="{{item.brand_id}}" data-bname="{{item.brand_name}}" data-mid="{{item.mould_id}}" data-mname="{{item.mould_name}}" data-mpic="{{item.mould_picture}}">
+        <image src="{{item.mould_picture}}"></image>
+        <view class='mould'>{{item.mould_name}}</view>
+        <view class='price'>回收最高价 <text>¥{{item.price}}</text></view>
+      </view>
+    </view>
+
+    <view class='hotRecycleFoot'>
+      <view class='findMoreBtn' bindtap='goToChooseDevice' data-pid="15">查看更多机型</view>
+    </view>
+  </view>
+
+  <view class="showBlock">
+    <view class="showBlockTop">Hi回收承诺</view>
+    <view class="showBlockBottom">
+       <view class="showListItem {{index == 1 ? 'mid' : ''}}" wx:for="{{showList}}" wx:key="key">
+          <view class=""><image src="{{item.imgUrl}}"></image></view>
+          <view class="itemContent">{{item.content}}</view>
+        </view>
+    </view>
+  </view>
+
+</view>
+
+<view class="refresher" wx:if="{{showRefresher}}">
+  <text>网络开小差了~</text>
+  <button class="refreshBtn" bindtap="onLoad">点击刷新</button>
+</view> 

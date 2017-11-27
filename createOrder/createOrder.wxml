@@ -1,0 +1,118 @@
+<!--createOrder.wxml-->
+<import src="../../../component/XYReserveTimeView-bak/XYReserveTimeView.wxml" />
+<template is="XYReserveTimeView" data="{{ ...$wux.picker.phone }}" />
+
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+<view class="container">
+  <block wx:if="{{isShowPlaceHold}}">
+    <!-- 立即下单添加服务地址 start -->
+    <view class="mb20 bgw w100 col333 ljxdbg " bindtap="selectAddress">
+      <view class="pl30 pr30 add">
+        <view class="ft30 pl50 tianjia">添加服务地址</view>
+      </view>
+    </view>
+    <!-- 立即下单添加服务地址 end -->
+  </block>
+  <block wx:else>
+    <!-- 立即下单地址 start -->
+    <view class="mb20 bgw w100 col333 ljxdbg" bindtap="selectAddress">
+      <view class="pl30 pr30 add">
+        <view class="ft32 h45">
+          <text class="fb pr20">{{selectedAddress.contacts}}</text>
+          <block wx:if="{{selectedAddress.gender == 1}}">
+            <text>先生</text>
+          </block>
+          <block wx:if="{{selectedAddress.gender == 2}}">
+            <text>女士</text>
+          </block>
+        </view>
+        <view class="ft26 address">
+          <text>{{selectedAddress.address}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 立即下单地址 end -->
+
+  <!-- 预约信息 start -->
+  <view class="mb20 bgw w100">
+    <view class="pl30 pr30 pb80 ft30">
+      <view class="ht100 bb col000">
+        <input type="number" maxlength="11" placeholder="请输入手机号" placeholder-class="col999" value="{{phone}}" class="ht100" bindinput="inputPhone" />
+      </view>
+      <view wx:if="{{hasLogin == false}}" class="ht100 bb col000">
+        <input type="number" maxlength="8" class="sryzm" placeholder="请输入验证码" placeholder-class="col999" value="{{code}}" bindinput="inputCode" />
+        <text class="hqyzm ht100 lh100 colorange pr30 ft28" style="color:{{getAuthCodeTextColor}}" catchtap="sendCode">{{getSmsCode}}</text>
+      </view>
+      <!-- 时间段 -->
+       <view class="ht100 bb col333" bindtap="onTapTime">
+        <text class="lh100">预约时间</text>
+        <view class="xzfwsj ht100 lh100 {{time? 'col000' : 'col999'}} pr30 ft28">{{time?time:"选择服务时间"}}</view>
+      </view> 
+
+      <view class="ht100 col000">
+        <input placeholder="如有其它问题请留言" placeholder-class="col999" class="ht100" bindinput="inputDetail" value="{{remark}}" />
+      </view>
+    </view>
+  </view>
+  <!-- 预约信息 end -->
+
+  <view class="payWay">
+    <view class="payWayTop">
+      选择支付方式
+    </view>
+    <view class="payWayDown">
+      <view class="payWayDownItem {{payment === index ? 'selected' : ''}}"  wx:for="{{payWayList}}" wx:key="index">
+        <view class="payWayDownItemTop" bindtap="payWayTap" data-index="{{index}}">
+            <view class="payWayDownItemTopleft"> 
+             <image src="../../../img/{{item.icon}}@2x.png"></image><text>{{item.content}}</text>
+            </view>
+            <view class="payWayDownItemTopRight">
+              <image src="../../../img/{{payment === index ? 'xzzf' : 'wxzzf'}}@2x.png"></image>
+            </view>
+        </view>
+        <view class="payWayDownItemDown" wx:if="{{item.input}}">
+          <input bindinput="payWayVal" class="downInput" placeholder="请输入{{item.content}}账号"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="goodsList">
+    <view class="goodsListTop">
+      交易清单
+    </view>
+    <view class="goodsListDown" wx:for="{{selectMouldList}}" wx:key="index">
+      <view class="goodsListDownLeft">
+        <image src="{{item.mpic}}"></image>
+      </view>
+      <view class="goodsListDownRight">
+        <text>品牌：{{item.bname}}</text>
+        <text class="midText">型号：{{item.mname}}</text>
+        <view class="priceView">
+          <text>回收报价：</text>
+          <text class="rmb">¥</text>
+          <text class="num">{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="placeholderView"></view>
+<!-- 立即下单底部 start -->
+<view class="fixedb w100  bgf8">
+  <view class="fl pt14">
+    <view class="ft30">
+      <text class="col333 pl30 lh40">回收金额：</text>
+      <text class="colorange lh40">¥{{price}}</text>
+    </view>
+    <view class="ft22 col666 pl30">
+      <text class="" bindtap='toUserAgreement'>提交订单等同于同意Hi维修服务条款</text>
+    </view>
+  </view>
+  <button class="xiadanbtn fr lh100 ft30" bindtap="submit">去下单</button>
+</view>
+<!-- 立即下单底部 end -->

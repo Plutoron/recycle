@@ -1,0 +1,32 @@
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+
+<view class='selectBlock animated fadeIn' wx:if="{{isShow}}">
+  <view class='topTabBar'>
+    <view class='tabBarItem {{curTabBarIndex === "0" ? "selected" : ""}}' data-index="0" data-pid="15" bindtap='tabBarTap'>
+      <text>手机回收</text> 
+    </view>
+    <view class='tabBarItem {{curTabBarIndex === "1" ? "selected" : ""}}' data-index="1" data-pid="16" bindtap='tabBarTap'>
+      <text>平板回收</text> 
+    </view>
+  </view>
+  <view class='downSelectBlock'>
+      <view class='brandList'>
+        <view class='brandListItem {{curBrandItemIndex == index ? "selected" : ""}}' bindtap='brandTap' wx:for='{{curTabBarIndex === "0" ? brandData.key15 : brandData.key16}}' wx:key='index' data-index='{{index}}' data-id='{{item.Id}}'>
+          {{item.BrandName}}
+        </view>
+      </view>
+      
+      <scroll-view scroll-y class="mouldListScrollView" style="height:{{scrollHeight}};" scroll-top="{{scrollTop}}">
+        <view class='mouldList'>
+          <view class="'mouldListItem" bindtap="itemTap" wx:for="{{mouldList}}" wx:key="index" data-mid="{{item.Id}}" data-mname="{{item.MouldName}}" data-mpic="{{item.Pic}}" data-bname="{{item.BrandName}}"  data-bid="{{item.BrandId}}">
+            <image src='{{item.Pic}}'></image>
+            <view class='mould'>{{item.MouldName}}</view>
+            <view class='price'>回收最高价 <text>¥{{item.avg_price}}</text></view>
+          </view>
+        </view>
+      </scroll-view>
+      
+  </view>
+</view>

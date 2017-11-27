@@ -1,0 +1,145 @@
+<!-- ddxq.wxmlwx:if="{{isShow}}" -->
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+<view class="container bgf5 pb100 animated fadeIn" wx:if="{{isShow}}">
+  <!-- 订单状态 start -->
+  <view class="bgred w100">
+    <view class="pt20 pr20 pl20 pb20">
+      <view class="bgw ddzt">
+        <image src="{{order.statusIcon}}" class="img88 ddzticon"></image>
+        <view class="ft32 colorange lh50">{{order.statusTitle}}</view>
+        <view class="ft24 col999 lh40">{{order.statusDesc}}</view>
+      </view>
+
+      <block wx:if="{{order.order_status == 2}}">
+        <view>
+          <map longitude="{{workerLoc.lng}}" latitude="{{workerLoc.lat}}" markers="{{workerLoc.markers}}" scale="14" style="width: 100%; height: 320rpx;"></map>
+        </view>
+      </block>
+
+
+      <view class="ddjd ft22 oh">
+        <block wx:if="{{order.order_status == 0}}">
+          <view class="fl w25 txtc colorange ddjdbtn">订单已提交</view>
+        </block>
+        <block wx:else>
+          <view class="fl w25 txtc colgray">订单已提交</view>
+        </block>
+        <block wx:if="{{order.order_status == 1}}">
+          <view class="fl w25 txtc colorange ddjdbtn">订单已预约</view>
+        </block>
+        <block wx:else>
+          <view class="fl w25 txtc colgray">订单已预约</view>
+        </block>
+        <block wx:if="{{order.order_status == 2 }}">
+          <view class="fl w25 txtc colorange ddjdbtn">工程师出发</view>
+        </block>
+        <block wx:else>
+          <view class="fl w25 txtc colgray">工程师出发</view>
+        </block>
+        <block wx:if="{{order.order_status == 3}}">
+          <view class="fl w25 txtc colorange ddjdbtn">回收完成</view>
+        </block>
+        <block wx:else>
+          <view class="fl w25 txtc colgray">回收完成</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 订单 start -->
+  <view class="mt20 bgw w100">
+    <view class="pl30 pr30 ft30">
+      <view class="ht100 bb col333 lh100 pl30 diangreen">订单：{{order.order_num}}</view>
+      <view class="bb col333 ft28 pt14 pb14">
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">回收机型</text>
+          <text class="col333">{{order.MouldName?order.MouldName:''}}</text>
+        </view>
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">回收报价</text>
+          <text class="col333">¥{{order.show_price}}</text>
+        </view>
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">收款方式</text>
+          <text class="col333">{{order.account_method}}</text>
+         
+        </view>
+        <view class="lh34 dingdan" wx:if='{{order.account_number}}'>
+            <text class="col999 dingdanl">{{order.account_method}}账号</text>
+            <text class="col333">{{order.account_number}}</text>
+        </view>
+      </view>
+      <view class="ht100 lh100">
+        <text class="fr ft28 pr25 colgreen">{{order.payment}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 订单 end -->
+
+   <!-- 工程师信息 start -->
+  <block wx:if="{{order.eng_id}}">
+    <view class="mt20 bgw w100">
+        <view class="pl30 pr30 ft30">
+          <view class="ht100 bb col333 lh100 pl30 diangreen">工程师信息</view>
+          <view class="pt40 pb40 oh">
+            <image src="{{order.eng_head_pic}}" class="icon100 fl"></image>
+            <view class="fl pl30">
+              <view class="ft32 col333 lh60">{{order.eng_realname?order.eng_realname:order.eng_name}}</view>
+              <view class="ft24 col999 lh28">{{order.eng_mobile}}</view>
+            </view>
+            <image src="https://pic.hiweixiu.com/hiweixiu-app/weapp/img/phone.png" class="fr mt10 mr20 icon80" bindtap="connectEngineer"></image>
+          </view>
+        </view>
+    </view>
+  </block>
+  <!-- 工程师信息 end -->
+
+  <!-- 回收信息 start -->
+  <view class="mt20 mb20 bgw w100">
+    <view class="pl30 pr30 ft30">
+      <view class="ht100 bb col333 lh100 pl30 diangreen">回收信息</view>
+      <view class="col333 ft28 pt14 pb14">
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">联系人</text>
+          <text class="col333">{{order.name}}</text>
+        </view>
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">服务电话</text>
+          <text class="col333">{{order.tel}}</text>
+        </view>
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">服务地址</text>
+          <text class="col333">{{order.address}}</text>
+        </view>
+        <view class="lh34 dingdan">
+          <text class="col999 dingdanl">下单时间</text>
+          <text class="col333">{{createDateTime}}</text>
+        </view>
+        <view class="lh34 dingdan" style="white-space: nowrap;">
+          <text class="col999 dingdanl">预约时间</text>
+          <text class="col333">{{reservedDateTime}}</text> 
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 回收信息 end -->
+
+
+ <!-- 订单详情底部 start -->
+  <view class="fixedb w100  bgf8">
+    <block wx:if="{{order.order_status == '1' || order.order_status == '2' }}">
+      <button class="xiadanbtn fr lh100 ft30" bindtap="connectEngineer">联系工程师</button>
+    </block>
+    <block wx:elif = "{{order.order_status == '0' || order.order_status == '3'}}">
+      <button class="xiadanbtn fr lh100 ft30" bindtap="connectService">联系客服</button>
+    </block>
+    <block wx:else>
+      <button class="xiadanbtn fr lh100 ft30" bindtap="goToChooseDevice">重新下单</button>
+    </block>
+
+  </view>
+  <!-- 订单详情底部 end -->
+
+  </view>

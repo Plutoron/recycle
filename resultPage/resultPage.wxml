@@ -1,0 +1,62 @@
+<!--resultPage.wxml-->
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+<view>
+  <view class="deviceInfoBlock">
+    <view class="deviceInfoLeft">
+      <image src="{{mpic}}"></image>
+    </view>
+    <view class="deviceInfoRight">
+      <text class="device">{{bname}} {{mname}}</text>
+      <text class="mid">预估回收价格：</text>
+      <view class="price"> <view class="rmb"><text>¥</text></view><view class="priceNum">{{price}}</view></view>
+    </view>
+  </view>
+  <view class="selectInfoBlock">
+    <view class="selectInfoTop">
+      <view class="left">
+        <image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/jieguo.png"></image>
+        <text>描述详情</text>
+      </view>
+      <view class="right"><text bindtap="reAssess">重新评估</text></view>
+    </view>
+    <view class="selectInfoBottom">
+      <view class="selectInfoItem" wx:for="{{selectInfo}}" wx:key="index">
+        <text class="selectInfoItemLeft">{{item.fname}}</text>
+        <text class="selectInfoItemRight">{{item.info}}</text>
+      </view>
+    </view>
+    
+  </view>
+
+  <view class="promiseBlock">
+    <view class="promiseTop">
+        <image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/chengnuo.png"></image>
+        <text>我们的承诺</text>
+    </view>
+
+    <view class="promiseBottom">
+      <view class="promiseBottomItem" wx:for="{{promiseList}}" wx:key="index">
+        <image src="{{item.imgUrl}}"></image>
+        <text>{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="placeHolderBlock"></view>
+
+  <view class="bottomBlock">
+    <view class="left" bindtap="toRecycleCart">
+      <view class="leftTop">
+        <text>{{cartNum}}</text>
+        <image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/kong_huishouche@3x.png"></image>
+      </view>
+      <view class="leftBottom">回收车</view>
+    </view>
+    <view class="mid" bindtap="addToCart"><text>加入回收车</text></view>
+    <view class="right" bindtap="toCreateOrder"><text>立即下单</text></view>
+  </view>
+</view>
+

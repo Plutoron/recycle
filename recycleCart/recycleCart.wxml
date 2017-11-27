@@ -1,0 +1,71 @@
+<!--recycleCart.wxml-->
+<import src="../../../component/message/message.wxml"/>
+<template is="message" data="{{ message }}"/>
+
+<view class="placeHolder"></view>
+
+<view class="cartList" wx:if="{{showCart}}" bindtap="resetCurDel">
+  <view class="validGoods" >
+    <view class="validItem {{ curDel === index ? 'showDel' : ''}}" wx:for="{{validList}}" wx:key="Id"  style="" bindtouchstart="touchStart" bindtouchend="touchEnd" data-idx="{{index}}">
+      <view class="validItemInfo"> 
+          <view class="selectIcon" bindtap="toggleItemSelect" data-index="{{index}}" data-id="{{item.Id}}"><image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/{{item.select ? 'gouxuan' : 'weigouxuan'}}@3x.png"></image></view>
+          <view class="deviceImg"><image src="{{item.Pic}}"></image></view>
+          <view class="deviceInfo">
+            <view class="deviceName">{{item.BrandName}} {{item.MouldName}}</view>
+            <view class="price">¥{{item.now_price}}</view>
+            <view class="status {{item.price_status == 1 ? 'down' : 'up'}}" wx:if="{{item.price_status != 0}}"> 
+            <!-- <view class="status {{item.price_status == 1 ? 'down' : 'up'}}"> -->
+              <view class="icon" style="{{item.price_status == 1 ? 'transform: rotate(180deg);' : ''}}"></view>比加入回收车时{{item.price_status == 1 ? '降' : '涨'}}价¥{{item.difference_price}}
+            </view>
+          </view>
+          <view class="infoIcon" bindtap="showDetailTap" data-id="{{item.Id}}"><image src="http://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/xiangqing@2x.png"></image></view>
+    
+     </view>
+     <view class="delBtn" bindtap="delOneList" data-index="{{index}}" data-id="{{item.Id}}">删除</view>
+    </view>
+  </view>
+
+  <view class="invalidGoods" wx:if="{{invalidList.length > 0}}">
+    <view class="invalidItem" wx:for="{{invalidList}}" wx:key="Id">
+     <view class="selectIcon"><image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/shixiao@3x.png"></image></view>
+     <view class="deviceImg"><image src="{{item.Pic}}"></image></view>
+     <view class="deviceInfo">
+      <view class="deviceName">{{item.BrandName}} {{item.MouldName}}</view>
+      <view class="price">¥{{item.now_price}}</view>
+     </view>
+     <view class="infoIcon"></view>
+    </view>
+
+    <view class="invalidFoot">
+      <view class="clearBtn" bindtap="deleteInvalid">清空失效商品</view>
+    </view>
+  </view>
+
+</view>
+
+<view class="fixedFoot" wx:if="{{showCart}}" bindtap="resetCurDel">
+  <view class="selectIcon" bindtap="selectAll">
+    <image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/{{selectAllOn ? 'gouxuan' : 'weigouxuan'}}@3x.png"></image>
+    <text>已选（{{selectNum}}）</text>
+  </view>
+  <view class="price">¥{{selectPrice}}</view>
+  <view class="balance" bindtap="toOrder">结算</view>
+</view>
+
+<view class="detailBlock animated fadeIn" wx:if="{{showDetail}}">
+  <view class="detailTitle">描述详情</view>
+  <view class="infoItem" wx:for="{{detailList}}" wx:key="index">
+    <view class="infoItemLeft">{{item.name}}</view>
+    <view class="infoItemRight">{{item.attr_fault_info}}</view>
+  </view>
+
+  <view class="closeBtn"><image catchtap="hideDetailTap" src="http://pic.hiweixiu.com/images/mrecy.hiweixiu.com/close.png"></image></view>
+</view>
+
+<view class="emptyCart" wx:if="{{emptyCart}}">
+  <view class="txt">
+    <image src="https://pic.hiweixiu.com/images/mrecy.hiweixiu.com/mImg/kong_huishouche@3x.png"></image>
+    <text>购物车是空的</text>  
+  </view>
+  <view class="toHome" bindtap="toHome">继续逛</view>
+</view>

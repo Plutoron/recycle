@@ -1,0 +1,139 @@
+.selectBlock{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.topTabBar{
+  border-top: 1rpx solid #e8e8e8;
+  border-Bottom: 1rpx solid #e8e8e8;
+  height: 90rpx;
+  max-height: 90rpx;
+  min-height: 90rpx;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  text-align: center;
+}
+.tabBarItem{
+  flex: 1;
+  font-size: 32rpx;
+  color: #333;
+  height: 100%;
+}
+.tabBarItem text{
+  display: inline-block;
+  height: 100%;
+  line-height: 90rpx;
+  box-sizing: border-box;
+}
+.tabBarItem.selected text{
+  border-bottom: 4rpx solid #ff5000;
+}
+
+.downSelectBlock{
+  flex: 20;
+  background: #f5f5f5;
+  display: flex;
+}
+
+.brandList{
+  flex: 1;
+  height: 100%;
+  border-right: 1rpx solid #e8e8e8; 
+}
+.brandListItem{
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333;
+  border-left: 4rpx solid #f5f5f5;
+  border-bottom: 1rpx solid #e8e8e8; 
+  position: relative;
+}
+.brandListItem.selected{
+  border-left-color:#ff5000;
+  margin-right: -1rpx;
+  background: #fff;
+}
+.brandListItem.selected::after{
+  display: block;
+}
+
+.brandListItem::after{
+  position: absolute;
+  right: 20%;
+  top: 30%;
+  content: '';
+  height: 12rpx;
+  width: 12rpx;
+  border-radius: 50%;
+  background: #ff5000;
+  display: none;
+}
+
+
+.mouldListScrollView{
+  flex: 3.25;
+  background: #fff;
+}
+
+.mouldList{
+  background: #fff;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color:transparent;
+}  
+
+.mouldListItem{
+  width: 50%;
+  box-sizing: border-box;
+  height: 350rpx;
+  border-right: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mouldListItem:nth-child(even){
+  border-right-color: transparent;
+}
+
+.mouldListItem image{
+  height: 180rpx;
+  width: 180rpx;
+}
+.mouldListItem .mould{
+  width: 90%;
+  text-align: center;
+  font-size: 26rpx;
+  color: #000;
+  margin-top: 25rpx;
+  margin-bottom: 5rpx;
+  white-space:nowrap; 
+  overflow:hidden; 
+  text-overflow:ellipsis;
+}
+.mouldListItem .price{
+  font-size: 22rpx;
+  color: #666;
+ 
+}
+.mouldListItem .price text{
+  font-size: 26rpx;
+  color: #ff4b4b;
+}
